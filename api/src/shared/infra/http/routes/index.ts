@@ -1,9 +1,9 @@
 import { Router } from 'express'
 
+import usersRouters from '@modules/users/infra/http/routes/users.routes'
+
 const routes = Router()
 
-routes.get('/', (req, res) => {
-  return res.json({ hello: 'Hello World' })
-})
+routes.use('/users', usersRouters)
 
 export default routes
