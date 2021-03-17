@@ -3,6 +3,7 @@
   "database": "./src/shared/infra/typeorm/database/database.sqlite",
   "migrations": ["./src/shared/infra/typeorm/migrations/**.ts"],
   "entities": ["./src/modules/**/infra/typeorm/entities/**.ts"],
+  "logging": true,
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/migrations"
   }
