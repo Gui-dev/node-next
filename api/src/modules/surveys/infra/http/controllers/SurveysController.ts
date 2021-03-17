@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import { SurveysRepository } from '@modules/surveys/repositories/SurveysRepository'
+import { SurveysRepository } from '@modules/surveys/infra/typeorm/repositories/SurveysRepository'
 
 export class SurveysController {
   public async create (request: Request, response: Response): Promise<Response> {
