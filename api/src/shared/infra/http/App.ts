@@ -2,11 +2,12 @@ import 'reflect-metadata'
 import express, { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import 'express-async-errors'
+import createConnection from '@shared/infra/typeorm'
 import { AppError } from '@shared/error/AppError'
 
-import '@shared/infra/typeorm'
-
 import routes from './routes'
+
+createConnection()
 
 export class App {
   public server: express.Application
