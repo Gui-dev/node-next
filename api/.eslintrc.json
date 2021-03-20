@@ -16,6 +16,6 @@
         "@typescript-eslint"
     ],
     "rules": {
-      "camelcase": ["error", {"ignoreGlobals": "true"}]
+      "camelcase": "off"
     }
 }
