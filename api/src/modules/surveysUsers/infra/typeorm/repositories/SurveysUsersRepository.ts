@@ -1,7 +1,9 @@
 import { getRepository } from 'typeorm'
+
 import { User } from '@modules/users/infra/typeorm/entities/User'
 import { Survey } from '@modules/surveys/infra/typeorm/entities/Survey'
 import { SurveyUser } from '@modules/surveysUsers/infra/typeorm/entities/SurveyUser'
+import sendMailService from '@shared/infra/services/SendMailService'
 import { AppError } from '@shared/error/AppError'
 
 interface ISurveysUsersRepositoryProps {
@@ -33,6 +35,12 @@ export class SurveysUsersRepository {
     })
 
     await surveyUser.save(surveysUsers)
+
+    await sendMailService.execute({
+      to: email,
+      subject: surveyAlreadyExists.title,
+      body: `<h1>${surveyAlreadyExists.title}</h1><p>${surveyAlreadyExists.description}</p>`
+    })
 
     return surveysUsers
   }
