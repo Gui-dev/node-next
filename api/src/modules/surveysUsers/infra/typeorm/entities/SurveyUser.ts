@@ -24,7 +24,7 @@ export class SurveyUser {
   public readonly survey: Survey
 
   @Column()
-  public readonly value: number
+  public value: number
 
   @CreateDateColumn()
   public readonly created_at: Date
