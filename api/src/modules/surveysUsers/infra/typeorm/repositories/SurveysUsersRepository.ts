@@ -32,7 +32,13 @@ export class SurveysUsersRepository {
       throw new AppError('Survey does not exists!')
     }
 
+    const surveyUserAlreadyExists = await surveyUser.findOne({
+      where: { user_id: userAlreadyExists.id, value: null },
+      relations: ['user', 'survey']
+    })
+
     const variables = {
+      survey_user_id: '',
       user_id: userAlreadyExists.id,
       name: userAlreadyExists.name,
       title: surveyAlreadyExists.title,
@@ -40,12 +46,9 @@ export class SurveysUsersRepository {
       link: `${process.env.APP_URL}/answers`
     }
 
-    const surveyUserAlreadyExists = await surveyUser.findOne({
-      where: [{ user_id: userAlreadyExists.id }, { value: null }],
-      relations: ['user', 'survey']
-    })
-
     if (surveyUserAlreadyExists) {
+      variables.survey_user_id = surveyUserAlreadyExists.id
+
       await sendMailService.execute({
         to: email,
         subject: surveyAlreadyExists.title,
@@ -62,6 +65,8 @@ export class SurveysUsersRepository {
     })
 
     await surveyUser.save(surveysUsers)
+
+    variables.survey_user_id = surveysUsers.id
 
     await sendMailService.execute({
       to: email,

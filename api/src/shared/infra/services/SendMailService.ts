@@ -6,6 +6,7 @@ interface ISendMailProps {
   to: string
   subject: string
   variables: {
+    survey_user_id: string
     user_id: string
     name: string
     title: string
