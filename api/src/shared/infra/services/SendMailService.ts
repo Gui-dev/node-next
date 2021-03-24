@@ -1,9 +1,18 @@
 import nodeMailer, { Transporter } from 'nodemailer'
+import handlebars from 'handlebars'
+import fs from 'fs'
 
 interface ISendMailProps {
   to: string
   subject: string
-  body: string
+  variables: {
+    user_id: string
+    name: string
+    title: string
+    description: string
+    link: string
+  }
+  path: string
 }
 
 class SendMailService {
@@ -29,12 +38,18 @@ class SendMailService {
       })
   }
 
-  public async execute ({ to, subject, body }: ISendMailProps): Promise<void> {
+  public async execute ({ to, subject, variables, path }: ISendMailProps): Promise<void> {
+    const templateFileContent = fs.readFileSync(path).toString('utf-8')
+
+    const templateMailParse = handlebars.compile(templateFileContent)
+
+    const html = templateMailParse(variables)
+
     const response = await this.client.sendMail({
       to,
       subject,
       from: 'NPS <noreplay@nps.com>',
-      html: body
+      html
     })
 
     console.log('Message sent: %s', response.messageId)
