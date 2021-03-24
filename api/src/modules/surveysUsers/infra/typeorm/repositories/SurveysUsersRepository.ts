@@ -1,4 +1,5 @@
 import { getRepository } from 'typeorm'
+import { resolve } from 'path'
 
 import { User } from '@modules/users/infra/typeorm/entities/User'
 import { Survey } from '@modules/surveys/infra/typeorm/entities/Survey'
@@ -17,6 +18,8 @@ export class SurveysUsersRepository {
     const survey = getRepository(Survey)
     const surveyUser = getRepository(SurveyUser)
 
+    const templateMailPath = resolve(__dirname, '..', '..', '..', '..', '..', 'shared', 'infra', 'views', 'emails', 'npsMail.hbs')
+
     const userAlreadyExists = await user.findOne({ email })
 
     if (!userAlreadyExists) {
@@ -29,6 +32,30 @@ export class SurveysUsersRepository {
       throw new AppError('Survey does not exists!')
     }
 
+    const variables = {
+      user_id: userAlreadyExists.id,
+      name: userAlreadyExists.name,
+      title: surveyAlreadyExists.title,
+      description: surveyAlreadyExists.description,
+      link: `${process.env.APP_URL}/answers`
+    }
+
+    const surveyUserAlreadyExists = await surveyUser.findOne({
+      where: [{ user_id: userAlreadyExists.id }, { value: null }],
+      relations: ['user', 'survey']
+    })
+
+    if (surveyUserAlreadyExists) {
+      await sendMailService.execute({
+        to: email,
+        subject: surveyAlreadyExists.title,
+        variables,
+        path: templateMailPath
+      })
+
+      return surveyUserAlreadyExists
+    }
+
     const surveysUsers = surveyUser.create({
       user_id: userAlreadyExists.id,
       survey_id
@@ -39,7 +66,8 @@ export class SurveysUsersRepository {
     await sendMailService.execute({
       to: email,
       subject: surveyAlreadyExists.title,
-      body: `<h1>${surveyAlreadyExists.title}</h1><p>${surveyAlreadyExists.description}</p>`
+      variables,
+      path: templateMailPath
     })
 
     return surveysUsers
