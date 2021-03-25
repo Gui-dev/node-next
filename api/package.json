@@ -7,8 +7,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules index.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "start-test": "set NODE_ENV=test node node_modules/jest/bin/jest",
-    "test": "jest",
-    "posttest": "rm ./src/shared/infra/typeorm/database/database.test.sqlite"
+    "test": "jest -i"
   },
   "dependencies": {
     "cors": "^2.8.5",
