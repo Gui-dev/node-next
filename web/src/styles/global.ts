@@ -25,8 +25,12 @@ export default createGlobalStyle`
   html, body {
     font-size: 62.5%;
     font-family: 'Inter', sans-serif;
-    background-color: var(--background);
     color: var(--text);
+    max-width: 99.2rem;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    background-color: var(--background);
   }
 
   input, textarea, button {
