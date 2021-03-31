@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Container = styled.header`
   display: flex;
   align-items: center;
-  width: 100%;
 
   span {
     font-size: 1.6rem;
