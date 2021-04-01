@@ -1,3 +1,4 @@
+import { CompletedChallenges } from '../components/CompletedChallenges'
 import { Profile } from '../components/Profile'
 import { Container } from './../styles/home'
 
@@ -7,6 +8,7 @@ export default function Home () {
       <section>
         <div>
           <Profile />
+          <CompletedChallenges />
         </div>
 
         <div></div>
