@@ -1,4 +1,5 @@
 import { CompletedChallenges } from '../components/CompletedChallenges'
+import { Countdown } from '../components/Countdown'
 import { Profile } from '../components/Profile'
 import { Container } from './../styles/home'
 
@@ -9,6 +10,7 @@ export default function Home () {
         <div>
           <Profile />
           <CompletedChallenges />
+          <Countdown />
         </div>
 
         <div></div>
