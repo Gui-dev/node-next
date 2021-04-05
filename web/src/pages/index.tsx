@@ -1,3 +1,4 @@
+import { ChallengeBox } from '../components/ChallengeBox'
 import { CompletedChallenges } from '../components/CompletedChallenges'
 import { Countdown } from '../components/Countdown'
 import { Profile } from '../components/Profile'
@@ -13,7 +14,9 @@ export default function Home () {
           <Countdown />
         </div>
 
-        <div></div>
+        <div>
+          <ChallengeBox />
+        </div>
       </section>
     </Container>
   )
