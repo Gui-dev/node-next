@@ -1,19 +1,24 @@
+import { useChallenges } from './../../hooks/ChallengesContext'
 import { Container } from './style'
 
 export const ExperienceBar: React.FC = () => {
+  const { currentExperience, experienceToNextLevel } = useChallenges()
+
+  const percentToNextLevel = Math.round((currentExperience * 100) / experienceToNextLevel)
+
   return (
     <Container>
       <span>0 xp</span>
       <div>
-        <div style={{ width: '50%' }}/>
+        <div style={{ width: `${percentToNextLevel}%` }}/>
         <span
-          style={{ left: '50%' }}
+          style={{ left: `${percentToNextLevel}%` }}
           className="current-experience"
         >
-          300xp
+          {currentExperience} xp
         </span>
       </div>
-      <span>600xp</span>
+      <span>{experienceToNextLevel} xp</span>
     </Container>
   )
 }

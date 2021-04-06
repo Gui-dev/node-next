@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+
+import { useChallenges } from './../../hooks/ChallengesContext'
 import { Container, CountdownButton } from './style'
 
 export const Countdown: React.FC = () => {
@@ -12,6 +14,8 @@ export const Countdown: React.FC = () => {
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('')
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('')
 
+  const { startNewChallenge } = useChallenges()
+
   useEffect(() => {
     if (isActive && time > 0) {
       countdownTimeout = setTimeout(() => {
@@ -20,6 +24,7 @@ export const Countdown: React.FC = () => {
     } else if (isActive && time === 0) {
       setHasFineshed(true)
       setIsActive(false)
+      startNewChallenge()
     }
   }, [isActive, time])
 
