@@ -1,42 +1,18 @@
-import { useEffect, useState } from 'react'
-
-import { useChallenges } from './../../hooks/ChallengesContext'
 import { Container, CountdownButton } from './style'
+import { useCountdown } from '../../hooks/CountdownContext'
 
 export const Countdown: React.FC = () => {
-  const [time, setTime] = useState(0.1 * 60)
-  const [isActive, setIsActive] = useState(false)
-  const [hasFineshed, setHasFineshed] = useState(false)
-  let countdownTimeout: ReturnType<typeof setTimeout>
+  const {
+    minutes,
+    seconds,
+    hasFineshed,
+    isActive,
+    startCountdown,
+    resetCountdown
+  } = useCountdown()
 
-  const minutes = Math.floor(time / 60)
-  const seconds = time % 60
   const [minuteLeft, minuteRight] = String(minutes).padStart(2, '0').split('')
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('')
-
-  const { startNewChallenge } = useChallenges()
-
-  useEffect(() => {
-    if (isActive && time > 0) {
-      countdownTimeout = setTimeout(() => {
-        setTime(time - 1)
-      }, 1000)
-    } else if (isActive && time === 0) {
-      setHasFineshed(true)
-      setIsActive(false)
-      startNewChallenge()
-    }
-  }, [isActive, time])
-
-  const startCountdown = () => {
-    setIsActive(true)
-  }
-
-  const resetCountdown = () => {
-    clearTimeout(countdownTimeout)
-    setIsActive(false)
-    setTime(0.1 * 60)
-  }
 
   return (
     <>
