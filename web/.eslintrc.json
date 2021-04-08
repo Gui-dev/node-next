@@ -21,7 +21,8 @@
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
-        "no-useless-return": "off"
+        "no-useless-return": "off",
+        "no-new": "off"
     },
     "globals": {
         "React": "writable"
