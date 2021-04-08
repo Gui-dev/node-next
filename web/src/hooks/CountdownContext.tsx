@@ -15,7 +15,7 @@ interface ICountdownContextProps {
   resetCountdown: () => void
 }
 
-const CountdownContext = createContext({} as ICountdownContextProps)
+export const CountdownContext = createContext({} as ICountdownContextProps)
 
 export const CountdownProvider = ({ children }: ICountdownProviderProps) => {
   const [time, setTime] = useState(0.1 * 60)
