@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import challenges from './../../challenges.json'
 
 interface IChallengeProps {
@@ -32,6 +32,10 @@ export const ChallengesProvider = ({ children }: IChallengesProviderProps) => {
   const [activeChallenge, setActiveChallenge] = useState<IChallengeProps | null>(null)
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2)
 
+  useEffect(() => {
+    Notification.requestPermission()
+  }, [])
+
   const levelUp = () => {
     setLevel(level + 1)
   }
@@ -40,6 +44,14 @@ export const ChallengesProvider = ({ children }: IChallengesProviderProps) => {
     const randomChallengeIndex = Math.floor(Math.random() * challenges.length)
     const challenge = challenges[randomChallengeIndex]
     setActiveChallenge(challenge)
+
+    new Audio('/notification.mp3').play()
+
+    if (Notification.permission === 'granted') {
+      new Notification('Novo desafio', {
+        body: `Valendo ${challenge.amount}xp!`
+      })
+    }
   }
 
   const completeChallenge = () => {
