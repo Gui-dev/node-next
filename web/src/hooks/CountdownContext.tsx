@@ -18,7 +18,7 @@ interface ICountdownContextProps {
 export const CountdownContext = createContext({} as ICountdownContextProps)
 
 export const CountdownProvider = ({ children }: ICountdownProviderProps) => {
-  const [time, setTime] = useState(0.1 * 60)
+  const [time, setTime] = useState(25 * 60)
   const [isActive, setIsActive] = useState(false)
   const [hasFineshed, setHasFineshed] = useState(false)
   let countdownTimeout: ReturnType<typeof setTimeout>
@@ -47,7 +47,7 @@ export const CountdownProvider = ({ children }: ICountdownProviderProps) => {
   const resetCountdown = () => {
     clearTimeout(countdownTimeout)
     setIsActive(false)
-    setTime(0.1 * 60)
+    setTime(25 * 60)
     setHasFineshed(false)
   }
 
