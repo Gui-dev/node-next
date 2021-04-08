@@ -15,7 +15,7 @@ export default createGlobalStyle`
     --blue-twitter: #2AA9E8;
   }
 
-  * {
+  *, *::after, *::before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -27,9 +27,9 @@ export default createGlobalStyle`
     font-family: 'Inter', sans-serif;
     color: var(--text);
     max-width: 99.2rem;
-    height: 100%;
+    height: 100vh;
     margin: 0 auto;
-    padding: 2.5rem 2rem;
+    padding: 1rem 2rem;
     background-color: var(--background);
   }
 
